@@ -50,7 +50,7 @@ async function generateWithOpenAI(input) {
   if (!process.env.OPENAI_API_KEY) throw new Error('OPENAI_NOT_CONFIGURED');
   const response = await fetch('https://api.openai.com/v1/responses', {
     method: 'POST', headers: { Authorization: `Bearer ${process.env.OPENAI_API_KEY}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ model: process.env.OPENAI_MODEL || 'gpt-6-astra', instructions: systemPrompt, input, max_output_tokens: 160 }),
+    body: JSON.stringify({ model: process.env.OPENAI_MODEL || 'gpt-6-luna', instructions: systemPrompt, input, max_output_tokens: 160 }),
     signal: AbortSignal.timeout(30_000),
   });
   const data = await response.json();
@@ -94,7 +94,7 @@ async function chat(bodyText) {
 export async function handleApiRequest({ method = 'GET', pathname, headers = {}, body = '', clientIp = 'local' }) {
   if (pathname === '/api/health') {
     const { provider, ollamaModel, openAiFallback } = config();
-    return json(200, { aiConfigured: provider === 'ollama' || Boolean(process.env.OPENAI_API_KEY), provider: provider === 'openai' ? 'openai' : 'ollama', model: provider === 'openai' ? (process.env.OPENAI_MODEL || 'gpt-6-astra') : ollamaModel, fallbackConfigured: openAiFallback && Boolean(process.env.OPENAI_API_KEY) });
+    return json(200, { aiConfigured: provider === 'ollama' || Boolean(process.env.OPENAI_API_KEY), provider: provider === 'openai' ? 'openai' : 'ollama', model: provider === 'openai' ? (process.env.OPENAI_MODEL || 'gpt-6-luna') : ollamaModel, fallbackConfigured: openAiFallback && Boolean(process.env.OPENAI_API_KEY) });
   }
   if (pathname === '/api/booking-status') return json(200, { configured: calendarConfigured() });
   if (!['/api/chat', '/api/bookings'].includes(pathname)) return json(404, { error: 'NOT_FOUND' });
