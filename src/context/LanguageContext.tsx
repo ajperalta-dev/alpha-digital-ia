@@ -105,7 +105,7 @@ const translations: Record<Language, Record<string, string>> = {
     'calc.cta': 'Agendar auditoría para validar estas cifras',
 
     // Case Studies
-    'cases.header.badge': 'CASOS DE USO · DEMOSTRACIÓN',
+    'cases.header.badge': 'CASOS DE USO',
     'cases.header.title': 'Ideas aplicadas a retos reales',
     'cases.header.desc': 'Aplicaciones de datos e inteligencia artificial para mejorar producción, inventario y gestión.',
 
@@ -265,7 +265,7 @@ const translations: Record<Language, Record<string, string>> = {
     'calc.cta': 'Book Technical Audit to Validate Figures',
 
     // Case Studies
-    'cases.header.badge': 'USE CASES · DEMONSTRATION',
+    'cases.header.badge': 'USE CASES',
     'cases.header.title': 'Ideas applied to real challenges',
     'cases.header.desc': 'Data and AI applications for production, inventory and management.',
 
@@ -793,4 +793,3 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     </LanguageContext.Provider>
   );
 };
-
