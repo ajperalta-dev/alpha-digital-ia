@@ -4,7 +4,7 @@
 
 html { scroll-padding-top: 100px; }
 body { margin: 0; }
-:root { --alpha-navy: #092c55; --alpha-blue: #155b91; --alpha-teal: #27a9b4; --alpha-gold: #d7b95b; }
+:root { --alpha-navy: #082f58; --alpha-blue: #0e5d82; --alpha-teal: #1a9f9a; --alpha-gold: #d5b45b; --alpha-ice: #eaf5f3; }
 :focus-visible { outline: 2px solid #0891b2 !important; outline-offset: 4px; }
 button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 button { touch-action: manipulation; }
@@ -96,6 +96,16 @@ html:not(.dark) .text-white.bg-gradient-to-r { color: white; }
 .bg-radial-glow {
   background: radial-gradient(circle at 50% 20%, rgba(37, 99, 235, 0.15) 0%, rgba(0, 229, 255, 0.05) 45%, transparent 70%);
 }
+
+/* Brand treatment derived from the ALPHA geometric mark. */
+.alpha-brand { background-image: radial-gradient(circle at 88% 5%, rgba(26,159,154,.13), transparent 27%), radial-gradient(circle at 8% 45%, rgba(213,180,91,.10), transparent 24%); }
+.alpha-brand .bg-gradient-to-r.from-cyan-500.to-blue-600,
+.alpha-brand .bg-gradient-to-r.from-cyan-400.to-blue-400 { background-image: linear-gradient(110deg, var(--alpha-navy), var(--alpha-blue) 56%, var(--alpha-teal)) !important; }
+.alpha-brand .bg-gradient-to-r.from-cyan-500.via-sky-400.to-blue-600 { background-image: linear-gradient(100deg, var(--alpha-teal), #54c6bd 48%, var(--alpha-gold)) !important; }
+.alpha-brand .text-cyan-400 { color: #59d1ca; }
+.alpha-brand .text-cyan-500 { color: var(--alpha-teal); }
+.alpha-brand .border-cyan-500\/30 { border-color: rgba(213,180,91,.36); }
+.alpha-brand .shadow-cyan-500\/25 { --tw-shadow-color: rgba(26,159,154,.28); }
 
 /* ============================================
    LIGHT MODE (Day Mode) Global Overrides

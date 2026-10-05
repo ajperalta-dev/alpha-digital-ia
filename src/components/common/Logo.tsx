@@ -19,13 +19,12 @@ export const Logo: React.FC<LogoProps> = ({
 
   return (
     <div className={`flex items-center gap-2.5 select-none ${className}`}>
-      <span className={`${logoDimensions.mark} relative shrink-0 overflow-hidden rounded-xl bg-gradient-to-br from-[#0c3b68] via-[#0b8eaa] to-[#d7b95b] shadow-[0_5px_22px_rgba(13,54,93,0.3)] ring-1 ring-[#d7b95b]/70`} aria-hidden="true">
-        <img src="/logoalpha.jpg" alt="" className="absolute h-[245%] w-[245%] max-w-none object-cover object-center -left-[72%] -top-[9%]" />
-        <span className="absolute inset-0 bg-gradient-to-br from-transparent via-cyan-300/10 to-[#071c39]/35" />
+      <span className={`${logoDimensions.mark} relative shrink-0 rounded-xl bg-[#082f58] p-1 shadow-[0_5px_22px_rgba(13,54,93,0.3)] ring-1 ring-[#d7b95b]/70`} aria-hidden="true">
+        <img src="/alpha-mark.svg" alt="" className="h-full w-full" />
       </span>
       {showText && <span className="leading-none">
         <span className={`${logoDimensions.title} block font-black tracking-[0.18em] text-[#0b3b68] dark:text-white`}>ALPHA</span>
-        <span className={`${logoDimensions.strap} block mt-1 font-bold tracking-[0.16em] text-[#1593a2] dark:text-cyan-300`}>DIGITAL TRANSFORMATION</span>
+        <span className={`${logoDimensions.strap} block mt-1 font-bold tracking-[0.16em] text-[#1593a2] dark:text-[#64d4cf]`}>DIGITAL TRANSFORMATION</span>
       </span>}
     </div>
   );

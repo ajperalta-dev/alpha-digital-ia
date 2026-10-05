@@ -35,7 +35,7 @@ export function AppContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[#030712] dark:bg-[#030712] light-bg text-slate-100 dark:text-slate-100 flex flex-col font-sans relative selection:bg-cyan-500/30 selection:text-cyan-200 transition-colors duration-300">
+    <div className="alpha-brand min-h-screen bg-[#030712] dark:bg-[#030712] light-bg text-slate-100 dark:text-slate-100 flex flex-col font-sans relative selection:bg-cyan-500/30 selection:text-cyan-200 transition-colors duration-300">
       
       {/* Sticky Glass Navbar */}
       <Navbar onOpenBooking={() => handleOpenBooking()} />
