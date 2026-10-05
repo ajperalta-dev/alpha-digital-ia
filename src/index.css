@@ -1,0 +1,220 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { scroll-padding-top: 100px; }
+body { margin: 0; }
+:focus-visible { outline: 2px solid #0891b2 !important; outline-offset: 4px; }
+button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+button { touch-action: manipulation; }
+.skip-link { position: fixed; top: 8px; left: 8px; transform: translateY(-180%); z-index: 100; background: #67e8f9; color: #0f172a; padding: 12px 20px; border-radius: 8px; }
+.skip-link:focus { transform: translateY(0); }
+#hero h1 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; letter-spacing: -.055em; line-height: 1.1; }
+#services h2 { max-width: 800px; text-wrap: balance; }
+#services .group.relative { box-shadow: 0 8px 36px #00000012; }
+#services .group.relative:hover { transform: translateY(-4px); }
+section h2 { text-wrap: balance; }
+html:not(.dark) .text-cyan-300, html:not(.dark) .text-cyan-400 { color: #0e7490; }
+html:not(.dark) .text-emerald-300, html:not(.dark) .text-emerald-400 { color: #047857; }
+html:not(.dark) .text-slate-500 { color: #64748b; }
+html:not(.dark) [class*="bg-cyan-950"], html:not(.dark) [class*="bg-emerald-950"] { background-color: #ecfeff; }
+html:not(.dark) .bg-slate-900\/80, html:not(.dark) .bg-slate-900\/60, html:not(.dark) .bg-slate-900\/95 { background-color: #f1f5f9; }
+html:not(.dark) .text-white.bg-gradient-to-r { color: white; }
+@media (max-width: 640px) {
+  section.py-24 { padding-top: 64px; padding-bottom: 64px; }
+  #hero { min-height: auto; padding-top: 128px; }
+  #hero h1 { font-size: clamp(2.5rem, 10vw, 3.5rem); }
+  input, textarea, select { font-size: 16px !important; }
+  [role="dialog"] { padding: 24px 20px; }
+  [role="dialog"] .flex.justify-between { flex-wrap: wrap; gap: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+@layer base {
+  html {
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  }
+}
+
+/* Custom modern scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #030712;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 9999px;
+  border: 2px solid #030712;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0284c7;
+}
+
+/* Glassmorphism helpers */
+.glass-panel {
+  background: rgba(15, 27, 56, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(56, 189, 248, 0.12);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel-hover:hover {
+  border-color: rgba(56, 189, 248, 0.35);
+  box-shadow: 0 10px 30px -10px rgba(0, 229, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.glow-cyan {
+  text-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+}
+
+.glow-border {
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+}
+
+/* Data grid background pattern */
+.bg-grid-pattern {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+.bg-radial-glow {
+  background: radial-gradient(circle at 50% 20%, rgba(37, 99, 235, 0.15) 0%, rgba(0, 229, 255, 0.05) 45%, transparent 70%);
+}
+
+/* ============================================
+   LIGHT MODE (Day Mode) Global Overrides
+   Applied when <html> does NOT have .dark class
+   ============================================ */
+
+html:not(.dark) {
+  --bg-base: #f0f4f8;
+  --bg-card: #ffffff;
+  --bg-card-border: #e2e8f0;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+}
+
+/* Page base background in light mode */
+html:not(.dark) body {
+  background-color: #f0f4f8;
+  color: #0f172a;
+}
+
+/* Sections background in light mode */
+html:not(.dark) section {
+  background-color: transparent;
+}
+
+/* Card overrides */
+html:not(.dark) .glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(37, 99, 235, 0.15);
+  backdrop-filter: blur(16px);
+}
+
+/* Scrollbar light mode */
+html:not(.dark) ::-webkit-scrollbar-track {
+  background: #e2e8f0;
+}
+
+html:not(.dark) ::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-color: #e2e8f0;
+}
+
+/* Light mode bg-grid-pattern */
+html:not(.dark) .bg-grid-pattern {
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+}
+
+/* Section dividers in light mode */
+html:not(.dark) .border-slate-800 {
+  border-color: #e2e8f0;
+}
+
+html:not(.dark) .border-slate-700 {
+  border-color: #cbd5e1;
+}
+
+/* Whole-page light background for the app root div */
+html:not(.dark) #root > div {
+  background-color: #f0f4f8 !important;
+  color: #0f172a;
+}
+
+/* Hero section light mode */
+html:not(.dark) #hero {
+  background-color: #e8f0fe;
+  background-image:
+    linear-gradient(to right, rgba(37, 99, 235, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(37, 99, 235, 0.05) 1px, transparent 1px);
+}
+
+/* Slate text overrides for light mode */
+html:not(.dark) .text-slate-100,
+html:not(.dark) .text-slate-200,
+html:not(.dark) .text-white {
+  color: #0f172a;
+}
+
+html:not(.dark) .text-slate-300 {
+  color: #334155;
+}
+
+html:not(.dark) .text-slate-400 {
+  color: #64748b;
+}
+
+/* Dark bg cards become white in light mode */
+html:not(.dark) .bg-slate-900,
+html:not(.dark) .bg-slate-900\/50,
+html:not(.dark) .bg-slate-900\/90,
+html:not(.dark) [class*="bg-\[#0"] {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+html:not(.dark) .bg-slate-950,
+html:not(.dark) .bg-slate-950\/85 {
+  background-color: #f8fafc !important;
+}
+
+/* Dark decorative gradients need a light surface as well as light text. */
+html:not(.dark) [class*="from-[#0"],
+html:not(.dark) [class*="from-cyan-950"],
+html:not(.dark) [class*="from-blue-950"] {
+  background-image: linear-gradient(135deg, #ecfeff, #eff6ff) !important;
+}
+html:not(.dark) [class*="text-cyan-300"],
+html:not(.dark) [class*="text-cyan-400"] { color: #0e7490; }
+html:not(.dark) [class*="text-blue-400"],
+html:not(.dark) [class*="text-indigo-400"],
+html:not(.dark) [class*="text-sky-400"] { color: #1d4ed8; }
+html:not(.dark) [class*="text-amber-300"],
+html:not(.dark) [class*="text-amber-400"] { color: #92400e; }
+@media (max-width: 640px) {
+  #services .mb-16 { margin-bottom: 2rem; }
+  #services .mb-12 { margin-bottom: 1.5rem; }
+  footer { padding-bottom: 100px !important; }
+}
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
