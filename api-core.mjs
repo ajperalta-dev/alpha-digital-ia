@@ -22,7 +22,8 @@ function rateLimited(key = 'local') {
 }
 
 const config = () => {
-  const provider = process.env.AI_PROVIDER || (process.env.NETLIFY ? 'openai' : 'ollama');
+  const serverless = Boolean(process.env.NETLIFY || process.env.AWS_LAMBDA_FUNCTION_NAME);
+  const provider = process.env.AI_PROVIDER || (serverless ? 'openai' : 'ollama');
   return {
     provider,
     ollamaBaseUrl: (process.env.OLLAMA_BASE_URL || 'http://127.0.0.1:11434').replace(/\/$/, ''),
