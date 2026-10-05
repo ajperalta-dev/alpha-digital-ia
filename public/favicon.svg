@@ -10,11 +10,8 @@
       <stop offset="100%" stop-color="#030712"/>
     </linearGradient>
   </defs>
-  <rect width="100" height="100" rx="22" fill="url(#bg)" stroke="#00e5ff" stroke-width="2" stroke-opacity="0.4"/>
-  <path d="M50 22 C32 22 20 36 20 54 C20 72 32 82 48 82 C62 82 72 72 78 58 L86 78" stroke="url(#g)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M48 64 L78 28 L62 28 M78 28 L78 44" stroke="#00e5ff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="34" cy="50" r="4" fill="#38bdf8" />
-  <circle cx="50" cy="38" r="4" fill="#00e5ff" />
-  <circle cx="62" cy="56" r="3.5" fill="#818cf8" />
-  <circle cx="78" cy="28" r="4.5" fill="#ffffff" />
+  <rect width="100" height="100" rx="22" fill="url(#bg)" stroke="#d7b95b" stroke-width="2" stroke-opacity="0.8"/>
+  <path d="M50 13 L16 78 L35 68 L50 38 L65 68 L84 78 Z" fill="url(#g)" stroke="#d7b95b" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M50 13 L50 38 L35 68 M50 38 L65 68 M24 63 L76 63" fill="none" stroke="#d7b95b" stroke-width="2" opacity=".9"/>
+  <circle cx="50" cy="42" r="6" fill="#fff6c7" stroke="#d7b95b" stroke-width="2"/>
 </svg>
