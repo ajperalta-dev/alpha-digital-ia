@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SiteInfo } from './SiteInfo';
 import { useLanguage } from '../../context/language';
-import { Logo } from './Logo';
+import { BrandLockup } from './BrandLockup';
 import { 
   ArrowUp, 
   Mail, 
@@ -28,7 +28,9 @@ export const Footer: React.FC = () => {
           
           {/* Brand Col */}
           <div className="lg:col-span-2 space-y-4">
-            <Logo size="md" />
+            <a href="#hero" className="inline-flex rounded-sm" aria-label={lang === 'es' ? 'ALPHA · Inicio' : 'ALPHA · Home'}>
+              <BrandLockup size="footer" />
+            </a>
 
             <p className="text-xs sm:text-sm text-slate-400 max-w-sm leading-relaxed">
               {t('footer.desc')}

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowUpRight, Bot, LoaderCircle, Send, X } from 'lucide-react';
+import { ArrowUpRight, LoaderCircle, Send, X } from 'lucide-react';
 import { useLanguage } from '../../context/language';
 
 type Message = { id: string; role: 'user' | 'assistant'; content: string };
@@ -76,7 +76,7 @@ export function ChatbotWidget({ onOpenBooking }: { onOpenBooking: () => void }) 
 
   return <div className="fixed bottom-5 right-4 sm:right-6 z-40">
     <button ref={triggerRef} onClick={() => setOpen(value => !value)} aria-expanded={open} aria-controls="alpha-assistant" aria-label={es ? 'Abrir asistente con IA' : 'Open AI assistant'} className={`${open ? 'sr-only' : ''} flex items-center gap-2 p-4 rounded-2xl bg-cyan-400 text-slate-950 shadow-xl hover:bg-cyan-300`}>
-      <Bot size={24} /><span className="hidden sm:block text-sm font-semibold">{es ? 'Asistente IA' : 'AI assistant'}</span>
+      <img src="/brand/identity-v2/alpha-favicon-64.png" alt="" className="h-7 w-7 object-contain" /><span className="hidden sm:block text-sm font-semibold">{es ? 'Asistente IA' : 'AI assistant'}</span>
     </button>
 
     {open && <section id="alpha-assistant" aria-label={es ? 'Asistente con IA' : 'AI assistant'} onKeyDown={event => { if (event.key === 'Escape') close(); }} className="w-[calc(100vw-2rem)] sm:w-[390px] h-[560px] max-h-[82dvh] flex flex-col rounded-2xl overflow-hidden border border-slate-700 bg-[#091124] shadow-2xl">

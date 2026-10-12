@@ -2,6 +2,7 @@ import { useDialog } from '../../hooks/useDialog';
 import React, { useState } from 'react';
 import { useLanguage } from '../../context/language';
 import type { ServiceItem } from '../../types';
+import { ServiceFlipCard } from './ServiceFlipCard';
 import { 
   Compass, GraduationCap, Search,
   BarChart3, 
@@ -138,9 +139,9 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
         {/* Services Progression Grid (ordered Level 1 to 6) */}
         <div className={`grid grid-cols-1 md:grid-cols-2 ${filteredServices.length > 2 ? 'lg:grid-cols-3' : 'max-w-5xl mx-auto'} gap-6 sm:gap-8`}>
           {filteredServices.map((service) => (
+            <ServiceFlipCard key={service.id} title={service.title[lang]} icon={service.iconName} lang={lang}>
             <div
-              key={service.id}
-              className={`group relative rounded-2xl bg-[#0b1429]/90 border transition-all duration-300 flex flex-col justify-between overflow-hidden p-6 sm:p-7 backdrop-blur-xl ${
+              className={`group relative h-full rounded-2xl bg-[#0b1429]/90 border transition-all duration-300 flex flex-col justify-between overflow-hidden p-6 sm:p-7 backdrop-blur-xl ${
                 service.featured
                   ? 'border-cyan-500/50 shadow-xl shadow-cyan-950/40 hover:border-cyan-400'
                   : 'border-slate-800 hover:border-cyan-500/40 hover:shadow-lg hover:shadow-cyan-950/20'
@@ -227,6 +228,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
               </div>
 
             </div>
+            </ServiceFlipCard>
           ))}
         </div>
 

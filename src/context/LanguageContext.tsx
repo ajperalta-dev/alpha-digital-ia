@@ -23,7 +23,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Hero Section
     'hero.badge': 'CONSULTORÍA ESTRATÉGICA EN DATA & IA',
-    'hero.title.pre': 'Datos e IA para',
+    'hero.title.pre': 'Ingeniería del dato para',
     'hero.title.highlight': 'dar el siguiente paso.',
     'hero.title.post': 'De la estrategia a la práctica.',
     'hero.subtitle': 'Creamos soluciones de datos, inteligencia artificial y automatización. Te acompañamos con consultoría estratégica y tutorías para convertir tus ideas en capacidades reales.',

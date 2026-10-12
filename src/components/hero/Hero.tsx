@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLanguage } from '../../context/language';
 import { useTheme } from '../../context/theme';
 import { NeuralBackground } from './NeuralBackground';
+import { BrainReveal } from './BrainReveal';
 import { 
   ArrowRight, 
   Calendar, 
@@ -23,6 +24,7 @@ interface HeroProps {
 export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
   const { t, lang } = useLanguage();
   const { isDark } = useTheme();
+  const [showNeural, setShowNeural] = useState(false);
 
   // Tech stack and sectors for the marquee
   const tickerItems = [
@@ -131,19 +133,32 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
                   : 'bg-gradient-to-r from-cyan-400/30 via-blue-400/20 to-sky-400/30'
               }`}></div>
               
-              <div className={`relative rounded-3xl border shadow-2xl backdrop-blur-2xl p-3 overflow-hidden transition-colors ${
+              <button type="button" onClick={() => setShowNeural(previous => !previous)}
+                aria-pressed={showNeural}
+                aria-label={lang === 'es' ? (showNeural ? 'Volver al logo ALPHA' : 'Transformar el logo en un cerebro luminoso animado') : (showNeural ? 'Return to the ALPHA logo' : 'Transform the logo into an animated luminous brain')}
+                className={`block w-full text-left cursor-pointer relative rounded-3xl border shadow-2xl backdrop-blur-2xl p-3 overflow-hidden transition-colors ${
                 isDark ? 'bg-[#081022]/90 border-cyan-500/30' : 'bg-white/90 border-slate-200'
               }`}>
-                <div className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-                  <img
-                    src="/hero-ai.jpg"
-                    alt="ALPHA AI Architecture"
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
-                    loading="eager"
-                  />
+                <div className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-[#edf6fb] dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                  <div className={`alpha-logo-energy absolute top-6 bottom-28 left-12 right-12 sm:top-8 sm:left-14 sm:right-14 transition-all duration-500 ${showNeural ? 'opacity-0 scale-75 pointer-events-none' : 'opacity-100 scale-100'}`}
+                    aria-hidden="true">
+                    <span className="alpha-logo-aura" aria-hidden="true" />
+                    <img
+                      src="/brand/alpha-isologo.svg"
+                      alt=""
+                      className="alpha-logo-art w-full h-full object-contain"
+                      loading="eager"
+                    />
+                    <span className="alpha-logo-shine" aria-hidden="true" />
+                    <span className="alpha-logo-sparks" aria-hidden="true">
+                      <i /><i /><i /><i /><i />
+                    </span>
+                  </div>
                   <div className={`absolute inset-0 opacity-60 pointer-events-none ${
                     isDark ? 'bg-gradient-to-t from-[#030712] to-transparent' : 'bg-gradient-to-t from-white to-transparent'
                   }`}></div>
+
+                  {showNeural && <BrainReveal lang={lang} />}
 
                   <div className="absolute bottom-4 left-4 right-4 p-3.5 rounded-xl bg-slate-900/90 dark:bg-slate-900/85 border border-slate-700 dark:border-cyan-500/30 backdrop-blur-md flex items-center justify-between shadow-xl">
                     <div className="flex items-center gap-3">
@@ -152,10 +167,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
                       </div>
                       <div>
                         <div className="text-white text-sm font-bold leading-tight">
-                          {lang === 'es' ? 'Modelos & GenAI' : 'Models & GenAI'}
+                          {showNeural ? (lang === 'es' ? 'Inteligencia iluminada' : 'Illuminated intelligence') : (lang === 'es' ? 'Modelos & GenAI' : 'Models & GenAI')}
                         </div>
                         <div className="text-[10px] text-slate-400 font-mono mt-0.5">
-                          {lang === 'es' ? 'Inferencia en Tiempo Real' : 'Real-time Inference'}
+                          {lang === 'es' ? (showNeural ? 'Pulsa para volver al logo' : 'Pulsa para explorar la IA') : (showNeural ? 'Click to return to the logo' : 'Click to explore AI')}
                         </div>
                       </div>
                     </div>
@@ -167,7 +182,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </button>
             </div>
           </div>
 

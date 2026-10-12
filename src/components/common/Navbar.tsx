@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../../context/language';
 import { useTheme } from '../../context/theme';
-import { Logo } from './Logo';
+import { BrandLockup } from './BrandLockup';
 import { 
   Calendar, 
   Menu, 
@@ -53,8 +53,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
         <div className="flex items-center justify-between">
           
           {/* Brand Logo */}
-          <a href="#" className="group focus:outline-none">
-            <Logo size="md" />
+          <a href="#hero" aria-label={lang === 'es' ? 'ALPHA · Inicio' : 'ALPHA · Home'}
+            className="flex shrink-0 items-center gap-3 sm:gap-4 rounded-sm">
+            <BrandLockup />
           </a>
 
           {/* Desktop Navigation */}

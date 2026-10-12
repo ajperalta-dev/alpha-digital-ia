@@ -50,6 +50,14 @@ Sin una clave válida, Ollama sigue funcionando. OpenAI solo genera consumo fact
 
 ## Privacidad y publicación
 
+### Vercel
+
+El proyecto incluye `vercel.json` y una función compartida en `api/index.mjs` para el asistente, las reservas y sus comprobaciones de configuración. En Vercel se construye con `npm run build` y se publica `dist`.
+
+Configura las variables necesarias en el entorno del proyecto de Vercel, nunca en GitHub. Para el asistente público usa `AI_PROVIDER=openai` y configura `OPENAI_API_KEY`. Para las reservas configura las variables Google Calendar indicadas en `.env.example`. Sin estas credenciales las API informan que están pendientes de configuración; el diseño de la web sigue funcionando. Ollama en localhost no es accesible desde Vercel.
+
+Para desplegar con tu cuenta: `npx vercel login`, `npx vercel link` y `npx vercel --prod`. `.env` y las carpetas locales de credenciales quedan excluidos del envío.
+
 El texto enviado al asistente se procesa localmente mientras Ollama esté disponible. Puede transmitirse a OpenAI si se activa el respaldo y el modelo local falla. La interfaz avisa de no introducir información sensible y no conserva la conversación entre recargas. Antes de publicar, completa los textos legales del titular y adapta la información de privacidad al despliegue y configuración definitivos.
 
 Las reservas crean un evento real y solicitan a Google notificaciones para los invitados solo cuando la integración está autorizada. La llegada al buzón depende de Google y de las preferencias del destinatario.

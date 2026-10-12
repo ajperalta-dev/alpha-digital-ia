@@ -22,7 +22,7 @@ function rateLimited(key = 'local') {
 }
 
 const config = () => {
-  const serverless = Boolean(process.env.NETLIFY || process.env.AWS_LAMBDA_FUNCTION_NAME);
+  const serverless = Boolean(process.env.VERCEL || process.env.NETLIFY || process.env.AWS_LAMBDA_FUNCTION_NAME);
   const provider = process.env.AI_PROVIDER || (serverless ? 'openai' : 'ollama');
   return {
     provider,
