@@ -9,5 +9,5 @@ const layout = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630
   ${embedded}
 </svg>`;
 const image = new Resvg(layout, { font: { loadSystemFonts: false } }).render();
-writeFileSync(new URL('../public/brand/alpha-share-v2.png', import.meta.url), image.asPng());
-console.log('Exported alpha-logo.svg → public/brand/alpha-share-v2.png (1200 × 630)');
+writeFileSync(new URL('../public/brand/alpha-logo-compartir-v3.png', import.meta.url), image.asPng());
+console.log('Exported alpha-logo.svg → public/brand/alpha-logo-compartir-v3.png (1200 × 630)');
