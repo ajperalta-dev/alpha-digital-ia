@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useLanguage } from '../../context/language';
 import type { ServiceItem } from '../../types';
 import { ServiceFlipCard } from './ServiceFlipCard';
+import { servicePresentation } from './servicePresentation';
 import { 
   Compass, GraduationCap, Search,
   BarChart3, 
@@ -31,6 +32,11 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
   const [search, setSearch] = useState('');
   const dialogRef = useDialog(!!selectedService, () => setSelectedService(null));
 
+  const getCardCopy = (service: ServiceItem) => servicePresentation[service.id]?.[lang] ?? {
+    title: service.title[lang], category: service.levelBadge[lang],
+    benefit: service.subtitle[lang], explanation: service.description[lang], includes: service.deliverables[lang].slice(0, 2),
+  };
+
   const getIcon = (iconName: string) => {
     switch (iconName) {
       case 'Compass': return <Compass className="w-6 h-6 text-cyan-400" />;
@@ -54,7 +60,8 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
 
   const filteredServices = services.filter((s) => {
     const normalize = (text: string) => text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-    if (!normalize([s.title[lang], s.description[lang], ...s.techStack].join(' ')).includes(normalize(search.trim()))) return false;
+    const copy = getCardCopy(s);
+    if (!normalize([s.title[lang], copy.title, copy.category, copy.benefit, copy.explanation, ...copy.includes, s.description[lang], ...s.techStack].join(' ')).includes(normalize(search.trim()))) return false;
     if (activeFilter === 'advisory') return s.level === 0;
     if (activeFilter === 'foundational') return s.level > 0 && s.level <= 2;
     if (activeFilter === 'advanced') return s.level >= 3 && s.level <= 4;
@@ -138,98 +145,30 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
         {filteredServices.length === 0 && <div className="text-center p-8 text-slate-300"><p>{lang === 'es' ? 'No hay coincidencias. Prueba otra búsqueda.' : 'No matches. Try another search.'}</p><button className="mt-3 text-cyan-400" onClick={() => { setSearch(''); setActiveFilter('all'); }}>{lang === 'es' ? 'Ver todas las soluciones' : 'Show all solutions'}</button></div>}
         {/* Services Progression Grid (ordered Level 1 to 6) */}
         <div className={`grid grid-cols-1 md:grid-cols-2 ${filteredServices.length > 2 ? 'lg:grid-cols-3' : 'max-w-5xl mx-auto'} gap-6 sm:gap-8`}>
-          {filteredServices.map((service) => (
-            <ServiceFlipCard key={service.id} title={service.title[lang]} icon={service.iconName} lang={lang}>
-            <div
-              className={`group relative h-full rounded-2xl bg-[#0b1429]/90 border transition-all duration-300 flex flex-col justify-between overflow-hidden p-6 sm:p-7 backdrop-blur-xl ${
-                service.featured
-                  ? 'border-cyan-500/50 shadow-xl shadow-cyan-950/40 hover:border-cyan-400'
-                  : 'border-slate-800 hover:border-cyan-500/40 hover:shadow-lg hover:shadow-cyan-950/20'
-              }`}
-            >
-              {/* Top Level indicator badge */}
-              <div className="flex items-center justify-between mb-5">
-                <div className="flex items-center gap-2">
-                  <div className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-700/80 group-hover:scale-105 transition-transform">
-                    {getIcon(service.iconName)}
+          {filteredServices.map((service) => {
+            const copy = getCardCopy(service);
+            return (
+              <ServiceFlipCard key={service.id} title={copy.title} category={copy.category} summary={copy.benefit} headingIcon={getIcon(service.iconName)} icon={service.iconName} lang={lang} animationFirst>
+                <div className="solution-details">
+                  <h4 className="solution-explanation-heading">{lang === 'es' ? 'Así te ayudamos' : 'How we help'}</h4>
+                  <p className="solution-explanation">{copy.explanation}</p>
+                  <ul className="solution-includes">
+                    {copy.includes.map((item) => (
+                      <li key={item}><CheckCircle size={16} aria-hidden="true" /><span>{item}</span></li>
+                    ))}
+                  </ul>
+                  <div className="solution-actions">
+                    <button onClick={() => setSelectedService(service)} className="solution-details-link">
+                      {lang === 'es' ? 'Ver detalles' : 'View details'}<ChevronRight size={16} aria-hidden="true" />
+                    </button>
+                    <button onClick={() => onSelectServiceForBooking(service.title[lang])} className="solution-contact">
+                      {lang === 'es' ? 'Hablemos' : 'Let’s talk'}
+                    </button>
                   </div>
-                  <span className="text-[11px] font-mono font-bold tracking-wider text-cyan-400 bg-cyan-950/60 px-2.5 py-1 rounded-md border border-cyan-800/40">
-                    {service.levelBadge[lang]}
-                  </span>
                 </div>
-                {service.featured && (
-                  <span className="text-[10px] font-semibold uppercase tracking-wider text-amber-300 bg-amber-950/50 px-2 py-0.5 rounded border border-amber-800/40 flex items-center gap-1">
-                    <Sparkles className="w-3 h-3 text-amber-400" />
-                    {lang === 'es' ? 'Alta Demanda' : 'High Demand'}
-                  </span>
-                )}
-              </div>
-
-              {/* Title & Subtitle */}
-              <div>
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors">
-                  {service.title[lang]}
-                </h3>
-                <p className="text-xs font-medium text-slate-400 mb-4 italic">
-                  "{service.subtitle[lang]}"
-                </p>
-                <p className="text-sm text-slate-300 leading-relaxed mb-5 line-clamp-3">
-                  {service.description[lang]}
-                </p>
-
-                {/* Key Deliverables bullets */}
-                <div className="space-y-2 mb-6">
-                  <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                    {t('services.card.deliverables')}
-                  </div>
-                  {service.deliverables[lang].slice(0, 3).map((item, idx) => (
-                    <div key={idx} className="flex items-start gap-2 text-xs text-slate-300">
-                      <CheckCircle className="w-3.5 h-3.5 text-cyan-400 mt-0.5 shrink-0" />
-                      <span>{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Bottom Actions & Tech stack badges */}
-              <div className="pt-4 border-t border-slate-800/80">
-                <div className="flex flex-wrap gap-1.5 mb-5">
-                  {service.techStack.slice(0, 4).map((tech, idx) => (
-                    <span
-                      key={idx}
-                      className="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                  {service.techStack.length > 4 && (
-                    <span className="text-[10px] font-mono px-1.5 py-0.5 text-slate-500">
-                      +{service.techStack.length - 4}
-                    </span>
-                  )}
-                </div>
-
-                <div className="flex items-center justify-between gap-3">
-                  <button
-                    onClick={() => setSelectedService(service)}
-                    className="text-xs font-semibold text-cyan-400 hover:text-cyan-300 flex items-center gap-1 group/btn"
-                  >
-                    <span>{lang === 'es' ? 'Ver detalles' : 'View details'}</span>
-                    <ChevronRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
-                  </button>
-
-                  <button
-                    onClick={() => onSelectServiceForBooking(service.title[lang])}
-                    className="px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-950 bg-gradient-to-r from-cyan-400 to-blue-400 hover:from-cyan-300 hover:to-blue-300 transition-all shadow-md shadow-cyan-500/20 active:scale-95"
-                  >
-                    {lang === 'es' ? 'Cotizar' : 'Inquire'}
-                  </button>
-                </div>
-              </div>
-
-            </div>
-            </ServiceFlipCard>
-          ))}
+              </ServiceFlipCard>
+            );
+          })}
         </div>
 
       </div>
@@ -237,7 +176,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
       {/* Deep-Dive Service Details Modal */}
       {selectedService && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
-          <div ref={dialogRef} role="dialog" aria-modal="true" aria-label={selectedService.title[lang]} className="relative w-full max-w-2xl rounded-2xl bg-[#091124] border border-cyan-500/40 shadow-2xl p-6 sm:p-8 max-h-[90vh] overflow-y-auto">
+          <div ref={dialogRef} role="dialog" aria-modal="true" aria-label={getCardCopy(selectedService).title} className="relative w-full max-w-2xl rounded-2xl bg-[#091124] border border-cyan-500/40 shadow-2xl p-6 sm:p-8 max-h-[90vh] overflow-y-auto">
             
             {/* Close Button */}
             <button
@@ -254,16 +193,16 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
               </div>
               <div>
                 <span className="text-xs font-mono font-bold text-cyan-400">
-                  {selectedService.levelBadge[lang]}
+                  {getCardCopy(selectedService).category}
                 </span>
                 <h3 className="text-2xl font-bold text-white">
-                  {selectedService.title[lang]}
+                  {getCardCopy(selectedService).title}
                 </h3>
               </div>
             </div>
 
             <p className="text-sm text-cyan-300/90 font-medium mb-4 italic">
-              {selectedService.subtitle[lang]}
+              {getCardCopy(selectedService).benefit}
             </p>
 
             <p className="text-sm text-slate-300 leading-relaxed mb-6">
